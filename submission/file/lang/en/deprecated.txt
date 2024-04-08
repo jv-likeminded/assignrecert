@@ -1,0 +1,3 @@
+filesofthesetypes,assignrecertsubmission_file
+filetypewithexts,assignrecertsubmission_file
+nonexistentfiletypes,assignrecertsubmission_file

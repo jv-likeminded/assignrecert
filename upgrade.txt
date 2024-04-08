@@ -1,0 +1,68 @@
+This files describes API changes in the assignrecert code.
+information provided here is intended especially for developers.
+
+=== 14.0 ===
+
+* assignrecert_submission_onlinetext::check_word_count() added 2nd parameter.
+
+=== 13.0 ===
+
+* Class assignrecert_upgrade_manager has been deprecated and should no longer be used.
+* Deprecated the following method:
+    * assignrecert_plugin::upgrade()
+    * assignrecert_plugin::upgrade_settings()
+    * assignrecert_plugin::can_upgrade()
+    * assignrecert::can_upgrade_assignment()
+    * assignrecert::can_upgrade()
+  These methods have no replacement and should no longer be used.
+
+=== 12.0 ===
+
+* Modified mod_assignrecert_renderer::render_assignrecert_submission_status_compact removing incorrect use alert-error CSS class
+* Modified mod_assignrecert_renderer::render_assignrecert_submission_status removing incorrect use alert-error CSS class
+* Deprecated the following report builder display functions and replaced with display classes
+    * rb_source_assign::rb_display_assignmenttype().
+    * rb_source_assign::rb_display_scalevalues(), please call mod_assignrecert\rb\display\assignrecert_scale_values::display() instead.
+    * rb_source_assign::rb_display_submissiongrade(), please call mod_assignrecert\rb\display\assignrecert_submission_grade::display() instead.
+    * rb_source_assign::rb_display_maxgrade(), please call mod_assignrecert\rb\display\assignrecert_max_grade::display() instead.
+    * rb_source_assign::rb_display_mingrade(), please call mod_assignrecert\rb\display\assignrecert_min_grade::display() instead.
+    * rb_source_assignsummary::rb_display_roundgrade(), please call totara_reportbuilder\rb\display\round::display() instead.
+* String helpers are no longer used in the following templates, string data is passed via context data:
+    * mod/assignrecert/templates/popout_button.mustache
+    * mod/assignrecert/templates/loading.mustache
+    * mod/assignrecert/templates/grading_navigation_user_summary.mustache
+    * mod/assignrecert/templates/grading_navigation_user_selector.mustache
+    * mod/assignrecert/templates/grading_navigation.mustache
+    * mod/assignrecert/templates/grading_app.mustache
+    * mod/assignrecert/templates/grading_actions.mustache
+* render_editor_content added 6th argument $shortentext
+* assignrecert_grading_summary class has a new 12th property $gradingnotrequired.
+
+=== 11.2 ===
+
+* assignrecert::add_attempt requires that set_most_recent_team_submission() be called if attempting to use this function with a team
+  submission.
+
+=== 10.0 ===
+* External function mod_assignrecert_external::get_assignmentrecerts now returns additional optional fields:
+   - preventsubmissionnotingroup: Prevent submission not in group.
+   - submissionstatement and submissionstatementformat: When there is a submission statement defined.
+* Proper checking for empty submissions
+* Submission modification time checking - this will help students working in groups not clobber each others'
+  submissions
+* External functions that were returning file information now return the following file fields:
+  filename, filepath, mimetype, filesize, timemodified and fileurl.
+  Those fields are now marked as VALUE_OPTIONAL for backwards compatibility.
+  Please, note that previously the filename was part of the filepath field, now they are separated.
+* Submission and feedback plugins can now specify file areas related to their configuration data,
+  which will then be included in backup and restore; see assignrecert_plugin::get_config_file_areas().
+* Submission and feedback plugins must now return the specific list of configs available for external functions,
+  this can be done implementing the new assignrecert plugin method get_config_for_external()
+* Webservice function mod_assignrecert_get_submissions returns a new field 'gradingstatus' from each submission.
+* The feedback plugins now need to implement the is_feedback_modified() method. The default is to return true
+  for backwards compatibiltiy.
+* When downloading all submissions as a zip each students' files are in a separate folder, are no longer renamed
+  and the folder structure is kept intact.
+* Updated HTML to use the standard bootstrap btn-default css class. This affects the mod_assignrecert/attempt_history_chooser,
+  mod_assignrecert/grading_actions templates and assignrecertfeedback_editpdf_renderer::render_assignrecertfeedback_editpdf_widget(),
+  mod_assignrecert_renderer::render_assignrecert_grading_summary() renderers and the assignmentrecert grading table.

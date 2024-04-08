@@ -1,0 +1,8 @@
+{
+  "name": "moodle-mod_assignrecert-history",
+  "builds": {
+    "moodle-mod_assignrecert-history": {
+      "jsfiles": ["history.js"]
+    }
+  }
+}

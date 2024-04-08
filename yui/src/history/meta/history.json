@@ -1,0 +1,5 @@
+{
+  "moodle-mod_assignrecert-history": {
+    "requires": ["node", "transition"]
+  }
+}
